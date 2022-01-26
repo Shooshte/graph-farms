@@ -1,0 +1,62 @@
+$font-family: 'Quattrocento Sans', sans-serif;
+$heading-font-family: 'Quattrocento', serif;
+
+// Base font size defines the font-size of the html elrement. Chaging this should scale the rest of the elrements for the whole app.
+$base-font-size: 14px;
+$label-size: 0.786rem;
+$max-text-width: 650px;
+
+// maximum content width, not sure where else to put this
+$max-content-width: 1024px;
+
+// Bold is used to distinguish important info in a sentence/table etc.
+$font-weights: (
+  'normal': 400,
+  'bold': 500,
+);
+
+// 1 is the biggest heading, 5 is for base fonts and 6 is for labels
+$font-sizes: (
+  '1': 37px,
+  '2': 29px,
+  '3': 23px,
+  '4': 18px,
+  '5': 14px,
+  '6': 11px,
+);
+
+$line-height-sizes: (
+  '1': 56px,
+  '2': 45px,
+  '3': 36px,
+  '4': 29px,
+  '5': 23px,
+  '6': 18px,
+);
+
+// These should also be used for spacing between different elrements on the page. They are inside font variables since they are relative to the base font-size
+$spacing-sizes: (
+  '1': 37px,
+  '2': 23px,
+  '3': 14px,
+  '4': 9px,
+  '5': 6px,
+  '6': 4px,
+);
+
+@mixin get-text-color($background-color) {
+  $color-brightness: round(
+    (red($background-color) * 299) + (green($background-color) * 587) +
+      (blue($background-color) * 114) * 0.001
+  );
+  $light-color: round(
+    (red(#ffffff) * 299) + (green(#ffffff) * 587) + (blue(#ffffff) * 114) *
+      0.001
+  );
+
+  @if abs($color-brightness) < ($light-color * 0.5) {
+    color: $light-text-color;
+  } @else {
+    color: $dark-text-color;
+  }
+}

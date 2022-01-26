@@ -7,8 +7,8 @@ export function Index() {
    * Note: The corresponding styles are in the ./index.scss file.
    */
   return (
-    <section>
-      <h1>About Graph Farms</h1>
+    <section className={styles.container}>
+      <h1 className="heading-1">About Graph Farms</h1>
     </section>
   );
 }

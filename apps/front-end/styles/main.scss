@@ -1,0 +1,78 @@
+@import './_colors';
+@import './fonts';
+
+// This is here to disable Safari from change phone number colour
+a[href^='tel'] {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+html {
+  background-color: $primary-color;
+  color: $dark-text-color;
+  font-family: $font-family;
+  font-size: $base-font-size;
+  height: 100%;
+  width: 100%;
+}
+
+.label {
+  font-size: map-get($font-sizes, '6');
+  line-height: map-get($line-height-sizes, '6');
+  margin-bottom: map-get($spacing-sizes, '6');
+  max-width: $max-text-width;
+}
+
+.link {
+  color: $accent-brown;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.list {
+  font-size: map-get($font-sizes, '5');
+  line-height: map-get($line-height-sizes, '5');
+  list-style: circle;
+  margin-bottom: map-get($spacing-sizes, '3');
+  margin-inline-start: map-get($spacing-sizes, '3');
+}
+
+.text-accent {
+  color: $accent-brown;
+}
+
+.text {
+  font-size: map-get($font-sizes, '5');
+  line-height: map-get($line-height-sizes, '5');
+  margin-bottom: map-get($spacing-sizes, '5');
+  max-width: $max-text-width;
+}
+
+@each $number, $font-size in $font-sizes {
+  .heading-#{$number} {
+    font-family: $heading-font-family;
+    font-size: $font-size;
+    font-weight: map-get($font-weights, 'bold');
+    max-width: $max-text-width;
+    padding: 0;
+  }
+}
+
+@each $number, $line-height in $line-height-sizes {
+  .heading-#{$number} {
+    line-height: $line-height;
+  }
+}
+
+@each $number, $margin in $spacing-sizes {
+  .heading-#{$number} {
+    margin: 0;
+    margin-bottom: $margin;
+  }
+  .margin-#{$number} {
+    margin: $margin;
+  }
+  .padding-#{$number} {
+    padding: $margin;
+  }
+}
