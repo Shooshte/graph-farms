@@ -5,10 +5,30 @@
 
 import * as express from 'express';
 
+// types
+import { UserTypeProfile } from 'libs/types/';
+
 const app = express();
 
 app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to api!' });
+  res.send({ message: 'Welcome to api Šušti!' });
+});
+
+app.get('/api/getProfile', (req, res) => {
+  const mockUserProfile: UserTypeProfile = {
+    segment: 'test',
+    pastMonthPurchases: [],
+    basket: {
+      createdAt: new Date(),
+      lines: [],
+    },
+    createdAt: new Date(),
+  };
+  res.send({ ...mockUserProfile });
+});
+
+app.get('/api/getItemsInfo', (req, res) => {
+  res.status(404).send('Not implemented yet!');
 });
 
 const port = process.env.port || 3333;
