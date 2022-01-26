@@ -16,6 +16,10 @@ html {
   width: 100%;
 }
 
+#__next {
+  height: 100vh;
+}
+
 .label {
   font-size: map-get($font-sizes, '6');
   line-height: map-get($line-height-sizes, '6');

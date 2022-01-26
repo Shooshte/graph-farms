@@ -1,0 +1,24 @@
+@import '../../styles//colors';
+@import '../../styles//fonts';
+
+.navigation {
+  align-items: center;
+  background-color: $accent-brown;
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  width: 100%;
+}
+
+.navigationLinks {
+  align-items: center;
+
+  box-shadow: rgb(0 0 0 / 6%) 0px 2px 3px 0px;
+  display: flex;
+  justify-content: flex-end;
+  max-width: $max-content-width;
+  padding: map-get($spacing-sizes, '3') map-get($spacing-sizes, '2');
+  width: calc(
+    100% - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
+  );
+}

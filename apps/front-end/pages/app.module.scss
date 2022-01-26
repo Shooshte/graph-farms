@@ -1,0 +1,8 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: calc(100vh - 46px);
+  overflow: auto;
+  width: 100%;
+}
