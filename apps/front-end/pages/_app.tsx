@@ -2,17 +2,17 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import './styles.css';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Welcome to front-end!</title>
+        <title>Graph Farms</title>
       </Head>
-      <main className="app">
+      <main>
         <Component {...pageProps} />
       </main>
     </>
   );
-}
+};
 
-export default CustomApp;
+export default App;
