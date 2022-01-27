@@ -8,7 +8,7 @@ export interface Purchase {
   lines: Line[];
 }
 
-export interface UserTypeProfile {
+export interface UserProfile {
   segment: string;
   pastMonthPurchases: Purchase[];
   basket: Purchase;

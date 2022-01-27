@@ -1,12 +1,24 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useAsyncState } from '../../hooks/asyncRequest';
 
 import BrandSidebar from '../../components/brandSidebar';
+import Link from 'next/link';
 
 import styles from './login.module.scss';
 
+import { postGetProfile } from '../../services/user';
+import { MockUser } from '../../../../libs/mockData/users';
+
 const Login = () => {
-  const [username, setUsername] = useState<string>(null);
-  const [password, setPassword] = useState<string>(null);
+  const [username, setUsername] = useState<string>();
+  const [password, setPassword] = useState<string>();
+
+  const getProfile = async (): Promise<MockUser> => {
+    return await postGetProfile({ username, password });
+  };
+
+  const [{ error, isLoading, responseData }, makeRequest] =
+    useAsyncState(getProfile);
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -20,8 +32,11 @@ const Login = () => {
 
   const handleLoginClick = (e: FormEvent) => {
     e.preventDefault();
-    // TODO mock login here
+    makeRequest();
   };
+
+  // TODO dispatch user data to store when make request finishes
+  // TODO add loading and error render states
 
   return (
     <section className={styles.container}>
@@ -53,6 +68,10 @@ const Login = () => {
         <button className="button" name="login" type="submit">
           Log in
         </button>
+        <span className={styles.addendum}>
+          You can find a list of the mocked users at the{' '}
+          <Link href="/register">Register page</Link>.
+        </span>
       </form>
     </section>
   );

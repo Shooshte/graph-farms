@@ -1,0 +1,17 @@
+@import '../../styles//colors';
+@import '../../styles//fonts';
+
+.container {
+  margin: 0 auto;
+  max-width: $max-content-width;
+  padding: map-get($spacing-sizes, '1');
+}
+
+.userList {
+  max-width: 400px;
+}
+
+.user {
+  border-bottom: 1px solid $accent-gray;
+  margin-bottom: map-get($spacing-sizes, '4');
+}

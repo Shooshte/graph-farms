@@ -1,6 +1,15 @@
 @import '../../styles/_colors';
 @import '../../styles/_fonts';
 
+.addendum {
+  font-size: map-get($font-sizes, '6');
+  margin-top: map-get($spacing-sizes, '3');
+  text-align: center;
+  a {
+    color: $accent-blue;
+  }
+}
+
 .loginForm {
   display: flex;
   flex-direction: column;
