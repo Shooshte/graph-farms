@@ -1,8 +1,15 @@
+@import '../styles//colors';
+@import '../styles//fonts';
+
 .main {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  height: calc(100vh - 46px);
+  background-color: $primary-color;
+  flex-grow: 1;
   overflow: auto;
+  width: 100%;
+}
+
+.mainContent {
+  @include get-text-color($primary-color);
+  margin: 0 auto;
   width: 100%;
 }
