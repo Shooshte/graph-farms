@@ -1,6 +1,43 @@
 @import '../styles/_colors';
 @import '../styles/_fonts';
 
-.container {
-  padding: map-get($spacing-sizes, '1') map-get($spacing-sizes, '2');
+.content {
+  height: calc(
+    100% - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+  );
+  overflow: auto;
+  padding: map-get($spacing-sizes, '1');
+}
+
+.sidebar {
+  display: none;
+}
+
+@media only screen and (min-width: 767px) {
+  .container {
+    align-items: flex-start;
+    display: grid;
+    justify-content: flex-start;
+    grid-template-columns: 0.3fr 0.7fr;
+    grid-column-gap: map-get($spacing-sizes, '2');
+    margin: 0 auto;
+    max-width: $max-content-width;
+  }
+  .sidebar {
+    align-items: center;
+    background-color: rgba($dark-text-color, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: calc(
+      100vh - 46px - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+    );
+    justify-content: center;
+    position: sticky;
+    padding: map-get($spacing-sizes, '1');
+    right: 0;
+    top: 0;
+    width: calc(
+      100% - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+    );
+  }
 }
