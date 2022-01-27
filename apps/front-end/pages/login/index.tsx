@@ -27,28 +27,30 @@ const Login = () => {
     <section className={styles.container}>
       <BrandSidebar />
       <form className={styles.loginForm} onSubmit={handleLoginClick}>
-        <h1 className="heading-2">Log in</h1>
+        <h1 className="heading-2 align-center">Log in</h1>
         <label className="label" htmlFor="username">
           Username
         </label>
         <input
-          type="text"
+          className="margin-bottom-3 input"
           id="username"
           name="username"
           onChange={handleUsernameChange}
+          type="text"
           value={username}
         />
         <label className="label" htmlFor="password">
           Password
         </label>
         <input
-          type="password"
+          className="margin-bottom-2 input"
           id="password"
           name="password"
           onChange={handlePasswordChange}
+          type="password"
           value={password}
         />
-        <button type="submit" name="login">
+        <button className="button" name="login" type="submit">
           Log in
         </button>
       </form>

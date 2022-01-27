@@ -6,7 +6,7 @@
 import * as express from 'express';
 
 // types
-import { UserTypeProfile } from 'libs/types/';
+import { UserTypeProfile } from '../../../libs/types/';
 
 const app = express();
 
