@@ -1,0 +1,26 @@
+@import '../../styles/_colors';
+@import '../../styles/_fonts';
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  padding: map-get($spacing-sizes, '1');
+  max-width: 300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 767px) {
+  .container {
+    align-items: center;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 0.4fr 0.6fr;
+    margin: 0 auto;
+    max-width: $max-content-width;
+  }
+  .loginForm {
+    margin: 0 auto;
+    max-width: 380px;
+  }
+}
