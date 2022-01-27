@@ -1,22 +1,15 @@
 import Image from 'next/image';
+import BrandSidebar from '../components/brandSidebar';
 
 import styles from './index.module.scss';
 
 export function Index() {
   return (
     <article className={styles.container}>
-      <section className={styles.sidebar}>
-        <h1 className="heading-1">Graph farms; produce done right!</h1>
-        <ul className="list">
-          <li className="heading-4">First marketing pitch</li>
-          <li className="heading-4">Second marketing pitch</li>
-          <li className="heading-4">Third marketing pitch</li>
-          <li className="heading-4">Fourth marketing pitch</li>
-          <li className="heading-4">Fifth marketing pitch</li>
-        </ul>
-      </section>
+      <BrandSidebar />
       <section className={styles.content}>
         <h1 className="heading-2">About Graph Farms</h1>
+
         <Image
           alt="Wheat farm at sunset"
           height={429}
