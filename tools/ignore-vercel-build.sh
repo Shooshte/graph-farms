@@ -1,3 +1,5 @@
+#!/bin/bash
+
 APP=front-end
 
 # Determine version of Nx installed
