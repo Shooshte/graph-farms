@@ -2,6 +2,7 @@ import Image from 'next/image';
 import styles from './intro.module.scss';
 import rocketSvg from '../../public/images/Rocket.svg';
 
+// At the moment all images must be from the images.unsplash.com domain
 interface WidgetProps {
   introText?: string;
   imageUrl?: string;
