@@ -18,8 +18,8 @@ import { postGetProfile } from '../../services/user';
 import UserContext from '../../context/user';
 
 const Login = () => {
-  const [username, setUsername] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const userContext = useContext(UserContext);
 
@@ -71,6 +71,7 @@ const Login = () => {
           Username
         </label>
         <input
+          autoComplete="username"
           className="margin-bottom-3 input"
           id="username"
           name="username"
@@ -82,6 +83,7 @@ const Login = () => {
           Password
         </label>
         <input
+          autoComplete="current-password"
           className="margin-bottom-2 input"
           id="password"
           name="password"

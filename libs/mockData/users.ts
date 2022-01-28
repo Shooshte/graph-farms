@@ -4,6 +4,7 @@ export interface MockUser extends UserProfile {
   id: string;
   username: string;
   password: string;
+  role: 'admin' | 'user';
 }
 
 export const MOCK_USERS: MockUser[] = [
@@ -18,6 +19,7 @@ export const MOCK_USERS: MockUser[] = [
     password: 'test1',
     segment: 'retired',
     pastMonthPurchases: [],
+    role: 'user',
   },
   {
     basket: {
@@ -30,6 +32,7 @@ export const MOCK_USERS: MockUser[] = [
     password: 'test2',
     segment: 'blue-collar',
     pastMonthPurchases: [],
+    role: 'user',
   },
   {
     basket: {
@@ -42,5 +45,6 @@ export const MOCK_USERS: MockUser[] = [
     password: 'admin',
     segment: 'admin',
     pastMonthPurchases: [],
+    role: 'admin',
   },
 ];

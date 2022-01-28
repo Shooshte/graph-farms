@@ -12,15 +12,15 @@ import NavbarLink from './NavbarLink';
 
 import UserContext from '../../context/user';
 
-interface NavbarProps {
-  isAdmin: boolean;
-}
-
-const Navbar = ({ isAdmin = false }: NavbarProps) => {
+const Navbar = () => {
   const userContext = useContext(UserContext);
 
   const isAuthenticated = useMemo(() => {
     return !!userContext?.userData;
+  }, [userContext]);
+
+  const isAdmin = useMemo(() => {
+    return userContext?.userData?.role === 'admin';
   }, [userContext]);
 
   return (

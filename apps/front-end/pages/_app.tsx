@@ -34,7 +34,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <title>Graph Farms</title>
       </Head>
       <UserContext.Provider value={contextValue}>
-        <Navbar isAdmin={false} />
+        <Navbar />
         <main className={styles.main}>
           <Component {...pageProps} />
         </main>
