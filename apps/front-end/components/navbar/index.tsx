@@ -1,4 +1,4 @@
-import { useContext, useMemo, useReducer } from 'react';
+import { useContext, useMemo } from 'react';
 
 import styles from './navbar.module.scss';
 
