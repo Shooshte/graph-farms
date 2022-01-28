@@ -1,3 +1,5 @@
+import { useContext, useMemo, useReducer } from 'react';
+
 import styles from './navbar.module.scss';
 
 import {
@@ -8,12 +10,19 @@ import {
 } from './navbar.const';
 import NavbarLink from './NavbarLink';
 
+import UserContext from '../../context/user';
+
 interface NavbarProps {
   isAdmin: boolean;
-  isAuthenticated: boolean;
 }
 
-const Navbar = ({ isAdmin = false, isAuthenticated = false }: NavbarProps) => {
+const Navbar = ({ isAdmin = false }: NavbarProps) => {
+  const userContext = useContext(UserContext);
+
+  const isAuthenticated = useMemo(() => {
+    return !!userContext?.userData;
+  }, [userContext]);
+
   return (
     <nav className={styles.navigation}>
       <ul className={styles.navigationLinks}>

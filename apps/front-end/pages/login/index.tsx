@@ -1,24 +1,51 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useAsyncState } from '../../hooks/asyncRequest';
 
 import BrandSidebar from '../../components/brandSidebar';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import styles from './login.module.scss';
 
 import { postGetProfile } from '../../services/user';
-import { MockUser } from '../../../../libs/mockData/users';
+import UserContext from '../../context/user';
 
 const Login = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
 
-  const getProfile = async (): Promise<MockUser> => {
-    return await postGetProfile({ username, password });
+  const userContext = useContext(UserContext);
+
+  const getProfile = async (): Promise<void> => {
+    try {
+      const userProfile = await postGetProfile({ username, password });
+      userContext?.setUserData(userProfile);
+    } catch (e) {
+      userContext?.setUserData(undefined);
+      throw e;
+    }
   };
 
-  const [{ error, isLoading, responseData }, makeRequest] =
-    useAsyncState(getProfile);
+  const [{ error, isLoading }, makeRequest] = useAsyncState(getProfile);
+
+  const isAuthenticated = useMemo(() => {
+    return !!userContext?.userData;
+  }, [userContext]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/shop');
+    }
+  }, [isAuthenticated, router]);
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -34,9 +61,6 @@ const Login = () => {
     e.preventDefault();
     makeRequest();
   };
-
-  // TODO dispatch user data to store when make request finishes
-  // TODO add loading and error render states
 
   return (
     <section className={styles.container}>

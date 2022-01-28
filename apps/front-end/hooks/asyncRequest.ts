@@ -15,6 +15,7 @@ export const useAsyncState = <R, _>(
   const [responseData, setResponseData] = useState(undefined);
   const [error, setError] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
+
   const makeRequest = async () => {
     setIsLoading(true);
 
@@ -23,6 +24,7 @@ export const useAsyncState = <R, _>(
       setResponseData(response);
     } catch (e) {
       setError(e.message);
+      setResponseData(undefined);
     } finally {
       setIsLoading(false);
     }
