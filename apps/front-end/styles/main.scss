@@ -44,6 +44,18 @@ html {
   width: 100%;
 }
 
+.message {
+  border-radius: map-get($spacing-sizes, '6');
+  border: 2px solid $dark-text-color;
+  padding: map-get($spacing-sizes, '3');
+}
+
+.error {
+  background-color: rgba($accent-red, 0.05);
+  border-color: $accent-red;
+  @include get-text-color(rgba($accent-red, 0.05));
+}
+
 #__next {
   align-items: flex-start;
   display: flex;
@@ -120,6 +132,9 @@ html {
   .heading-#{$number} {
     margin-bottom: $margin;
   }
+  .margin-#{$number} {
+    margin: $margin;
+  }
   .margin-top-#{$number} {
     margin-top: $margin;
   }
@@ -131,6 +146,9 @@ html {
   }
   .margin-right-#{$number} {
     margin-right: $margin;
+  }
+  .padding-#{$number} {
+    padding: $margin;
   }
   .padding-top-#{$number} {
     padding-top: $margin;

@@ -91,9 +91,19 @@ const Login = () => {
           type="password"
           value={password}
         />
-        <button className="button" name="login" type="submit">
-          Log in
+        <button
+          className="button"
+          disabled={isLoading}
+          name="login"
+          type="submit"
+        >
+          {isLoading ? 'Loading...' : 'Log in'}
         </button>
+        {error ? (
+          <div className="message error text margin-top-3 margin-bottom-3">
+            {`There was a problem: ${error}`}
+          </div>
+        ) : null}
         <span className={styles.addendum}>
           You can find a list of the mocked users at the{' '}
           <Link href="/register">Register page</Link>.

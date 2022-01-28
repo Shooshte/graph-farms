@@ -23,7 +23,7 @@ app.post('/api/getProfile', (req, res) => {
     if (user) {
       res.status(200).send({ ...user });
     } else {
-      res.status(404).send('User not found.');
+      res.status(404).send('Incorrect credentials!');
     }
   } catch (e) {
     res.status(500).send(e.message);

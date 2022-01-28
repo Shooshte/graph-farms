@@ -23,7 +23,7 @@ export const useAsyncState = <R, _>(
       const response = await asyncFunction();
       setResponseData(response);
     } catch (e) {
-      setError(e.message);
+      setError(e?.response?.data ? e.response.data : e.message);
       setResponseData(undefined);
     } finally {
       setIsLoading(false);
