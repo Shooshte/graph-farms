@@ -1,30 +1,33 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import * as express from 'express';
+import * as cors from 'cors';
 
-// types
-import { UserTypeProfile } from 'libs/types/';
+// mock data
+import { MOCK_USERS } from '../../../libs/mockData/users';
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to api Šušti!' });
+  res.send({ message: 'Welcome to api!' });
 });
 
-app.get('/api/getProfile', (req, res) => {
-  const mockUserProfile: UserTypeProfile = {
-    segment: 'test',
-    pastMonthPurchases: [],
-    basket: {
-      createdAt: new Date(),
-      lines: [],
-    },
-    createdAt: new Date(),
-  };
-  res.send({ ...mockUserProfile });
+app.post('/api/getProfile', (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = MOCK_USERS.find((user) => {
+      return user.username === username && user.password && password;
+    });
+
+    if (user) {
+      res.status(200).send({ ...user });
+    } else {
+      res.status(404).send('Incorrect credentials!');
+    }
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
 
 app.get('/api/getItemsInfo', (req, res) => {

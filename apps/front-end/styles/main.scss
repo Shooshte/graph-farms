@@ -7,6 +7,34 @@ a[href^='tel'] {
   color: inherit;
 }
 
+.align-center {
+  text-align: center;
+}
+
+button {
+  background-color: $accent-blue;
+  border: 1px solid $accent-gray;
+  border-radius: map-get($spacing-sizes, '6');
+  @include get-text-color($accent-blue);
+  font-family: $font-family;
+  font-size: map-get($font-sizes, '5');
+  font-weight: map-get($font-weights, 'bold');
+  letter-spacing: 0.05em;
+  padding: map-get($spacing-sizes, '3');
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: $accent-blue-dark;
+  @include get-text-color($accent-blue-dark);
+}
+
+button:focus-visible {
+  background-color: $accent-blue-dark;
+  @include get-text-color($accent-blue-dark);
+  outline: none;
+}
+
 html {
   background-color: $primary-color;
   @include get-text-color($primary-color);
@@ -14,6 +42,18 @@ html {
   font-size: $base-font-size;
   height: 100%;
   width: 100%;
+}
+
+.message {
+  border-radius: map-get($spacing-sizes, '6');
+  border: 2px solid $dark-text-color;
+  padding: map-get($spacing-sizes, '3');
+}
+
+.error {
+  background-color: rgba($accent-red, 0.05);
+  border-color: $accent-red;
+  @include get-text-color(rgba($accent-red, 0.05));
 }
 
 #__next {
@@ -31,6 +71,8 @@ html {
   line-height: map-get($line-height-sizes, '6');
   margin-bottom: map-get($spacing-sizes, '6');
   max-width: $max-text-width;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .link {
@@ -49,6 +91,18 @@ html {
 
 .text-accent {
   color: $accent-orange;
+}
+
+.input {
+  border: 1px solid $accent-gray;
+  border-radius: map-get($spacing-sizes, '6');
+  font-family: $font-family;
+  font-size: $base-font-size;
+  padding: map-get($spacing-sizes, '4');
+}
+
+.input:focus-visible {
+  outline: 1px solid $accent-blue;
 }
 
 .text {
@@ -78,6 +132,9 @@ html {
   .heading-#{$number} {
     margin-bottom: $margin;
   }
+  .margin-#{$number} {
+    margin: $margin;
+  }
   .margin-top-#{$number} {
     margin-top: $margin;
   }
@@ -89,6 +146,9 @@ html {
   }
   .margin-right-#{$number} {
     margin-right: $margin;
+  }
+  .padding-#{$number} {
+    padding: $margin;
   }
   .padding-top-#{$number} {
     padding-top: $margin;
