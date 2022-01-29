@@ -17,9 +17,12 @@ describe('/shop', () => {
         title: 'You work here!',
       },
       {
-        display: 0,
+        display: 1,
         username: 'regular',
         password: 'regular',
+        imageUrl:
+          '/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1590779033100-9f60a05a013d%3Fixlib%3Drb-1.2.1%26ixid%3DMnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8%26auto%3Dformat%26fit%3Dcrop%26w%3D687%26q%3D80&w=1024&q=100',
+        title: 'Welcome back!',
       },
       {
         display: 1,
