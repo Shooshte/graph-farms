@@ -26,9 +26,9 @@ const Login = () => {
   const getProfile = async (): Promise<void> => {
     try {
       const userProfile = await postGetProfile({ username, password });
-      userContext?.setUserData(userProfile);
+      userContext?.setUserData({ newUserData: userProfile, updateRoute: true });
     } catch (e) {
-      userContext?.setUserData(undefined);
+      userContext?.setUserData({ newUserData: undefined, updateRoute: true });
       throw e;
     }
   };

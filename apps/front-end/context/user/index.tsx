@@ -1,10 +1,15 @@
 import { createContext } from 'react';
 import { MockUser } from '../../../../libs/mockData/users';
 
+interface handleUserDataChangeArgs {
+  newUserData: MockUser;
+  updateRoute?: boolean;
+}
+
 export type UserContextState =
   | {
       userData: MockUser;
-      setUserData: (data: MockUser) => void;
+      setUserData: (args: handleUserDataChangeArgs) => void;
     }
   | undefined;
 

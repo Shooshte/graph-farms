@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -19,14 +19,22 @@ const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
 
   const contextValue = useMemo(() => {
-    const handleUserDataChange = (newUserData: MockUser): void => {
+    const handleUserDataChange = ({
+      newUserData,
+      updateRoute = false,
+    }): void => {
       setUserData(newUserData);
-      console.log('newUserData: ', newUserData);
-      // TODO add additional redirect conditions if userData will be loaded from somewhere else than login component that userData actually changes
-      if (newUserData) {
-        if (newUserData?.role === 'admin') {
-          router.push('/admin');
+      if (updateRoute) {
+        if (newUserData) {
+          // admin user use case
+          if (newUserData?.role === 'admin') {
+            router.push('/admin');
+          } else {
+            // non-admin user use case
+            router.push('/login');
+          }
         } else {
+          // logout use case
           router.push('/login');
         }
       }
