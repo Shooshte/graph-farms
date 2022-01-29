@@ -98,11 +98,18 @@ html {
   border-radius: map-get($spacing-sizes, '6');
   font-family: $font-family;
   font-size: $base-font-size;
+  max-width: $max-text-width;
   padding: map-get($spacing-sizes, '4');
+  width: 100%;
 }
 
 .input:focus-visible {
   outline: 1px solid $accent-blue;
+}
+
+.select {
+  // for some reason select dropdowns are 20 px shorter than inputs...
+  max-width: calc($max-text-width + 20px);
 }
 
 .text {

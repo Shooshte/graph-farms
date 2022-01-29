@@ -27,7 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   const widgetRulesContextValue = useMemo(() => {
     const handleRulesChange = (newRules: WidgetRules) => {
-      setWidgetRules(newRules);
+      setWidgetRules({ ...newRules });
     };
 
     return { widgetRules, setWidgetRules: handleRulesChange };

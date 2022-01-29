@@ -1,0 +1,6 @@
+@import '../../../styles/_colors';
+@import '../../../styles/_fonts';
+
+.widgetRule {
+  margin-bottom: map-get($spacing-sizes, '2');
+}
