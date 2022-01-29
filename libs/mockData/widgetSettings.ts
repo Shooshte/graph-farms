@@ -70,11 +70,11 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
     specificity: 2,
     type: 'userSegment',
     widgetSettings: {
-      displayOrder: 0,
+      displayOrder: 2,
       props: {
         imageUrl:
-          'https://images.unsplash.com/photo-1534951009808-766178b47a4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        introText: 'Special retiree discounts every wednesday!',
+          'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+        introText: 'Welcome back!',
       },
     },
   },

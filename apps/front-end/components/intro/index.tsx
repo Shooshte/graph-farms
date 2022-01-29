@@ -24,7 +24,7 @@ const Intro = ({
           quality={100}
         />
       </div>
-      <h1 className="align-center heading-3 margin-top-3">{introText}</h1>
+      <h1 className="align-center heading-3 margin-top-2">{introText}</h1>
     </div>
   );
 };
