@@ -18,7 +18,36 @@ export const MOCK_USERS: MockUser[] = [
     username: 'regular',
     password: 'regular',
     segment: 'regular',
-    pastMonthPurchases: [],
+    pastMonthPurchases: [
+      {
+        createdAt: '2022-01-26',
+        lines: [],
+      },
+      {
+        createdAt: '2022-01-20',
+        lines: [],
+      },
+      {
+        createdAt: '2022-01-17',
+        lines: [],
+      },
+      {
+        createdAt: '2022-01-15',
+        lines: [],
+      },
+      {
+        createdAt: '2022-01-12',
+        lines: [],
+      },
+      {
+        createdAt: '2022-01-09',
+        lines: [],
+      },
+      {
+        createdAt: '2022-01-08',
+        lines: [],
+      },
+    ],
     role: 'user',
   },
   {
