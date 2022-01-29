@@ -1,0 +1,23 @@
+@import '../../styles/_colors';
+@import '../../styles/_fonts';
+
+.container {
+  align-items: center;
+  border: 1px solid $accent-gray;
+  border-radius: map-get($spacing-sizes, '6');
+  background-color: $accent-orange;
+  @include get-text-color($accent-orange);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: calc(
+    245px - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
+  );
+  padding: map-get($spacing-sizes, '2');
+}
+
+.imageContainer {
+  height: 292px;
+  position: relative;
+  width: 197px;
+}

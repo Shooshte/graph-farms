@@ -1,0 +1,19 @@
+@import '../../styles/_colors';
+@import '../../styles/_fonts';
+
+.container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 auto;
+  max-width: $max-content-width;
+  padding: map-get($spacing-sizes, '1');
+}
+
+.widgets {
+  display: grid;
+  grid-gap: map-get($spacing-sizes, '3');
+  grid-template-columns: repeat(auto-fill, 245px);
+  width: 100%;
+}

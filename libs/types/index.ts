@@ -8,8 +8,10 @@ export interface Purchase {
   lines: Line[];
 }
 
+export type UserSegment = 'retired' | 'blue-collar' | 'admin' | 'regular';
+
 export interface UserProfile {
-  segment: string;
+  segment: UserSegment;
   pastMonthPurchases: Purchase[];
   basket: Purchase;
   createdAt: Date;
