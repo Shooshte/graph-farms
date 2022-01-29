@@ -5,20 +5,35 @@ import Head from 'next/head';
 
 import Navbar from '../components/navbar';
 import UserContext from '../context/user';
+import WidgetRulesContext from '../context/rules';
 
 import '../styles/reset.css';
 import '../styles/main.scss';
 
 import styles from './app.module.scss';
 
+import {
+  INITIAL_WIDGET_RULES,
+  WidgetRules,
+} from '../../../libs/mockData/widgetSettings';
 import { MockUser } from '../../../libs/mockData/users';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [userData, setUserData] = useState<MockUser>(undefined);
+  const [widgetRules, setWidgetRules] =
+    useState<WidgetRules>(INITIAL_WIDGET_RULES);
 
   const router = useRouter();
 
-  const contextValue = useMemo(() => {
+  const widgetRulesContextValue = useMemo(() => {
+    const handleRulesChange = (newRules: WidgetRules) => {
+      setWidgetRules(newRules);
+    };
+
+    return { widgetRules, setWidgetRules: handleRulesChange };
+  }, [widgetRules]);
+
+  const userContextValue = useMemo(() => {
     const handleUserDataChange = ({
       newUserData,
       updateRoute = false,
@@ -47,11 +62,13 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Head>
         <title>Graph Farms</title>
       </Head>
-      <UserContext.Provider value={contextValue}>
+      <UserContext.Provider value={userContextValue}>
         <Navbar />
-        <main className={styles.main}>
-          <Component {...pageProps} />
-        </main>
+        <WidgetRulesContext.Provider value={widgetRulesContextValue}>
+          <main className={styles.main}>
+            <Component {...pageProps} />
+          </main>
+        </WidgetRulesContext.Provider>
       </UserContext.Provider>
     </>
   );

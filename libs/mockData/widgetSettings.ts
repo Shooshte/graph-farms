@@ -26,8 +26,10 @@ interface IntroWidgetRule {
   widgetSettings: IntroWidgetSettings;
 }
 
+export type WidgetRule = IntroWidgetRule;
+
 // TODO enable admin editing of these rules
-export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
+export const MOCK_INTRO_RULES: WidgetRule[] = [
   {
     createdAt: new Date('2022-01-29'),
     filterFunction: (user) => user.segment === 'regular',
@@ -97,3 +99,11 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
     },
   },
 ];
+
+export interface WidgetRules {
+  intro: WidgetRule[];
+}
+
+export const INITIAL_WIDGET_RULES: WidgetRules = {
+  intro: MOCK_INTRO_RULES,
+};
