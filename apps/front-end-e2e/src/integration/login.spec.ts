@@ -19,8 +19,13 @@ describe('user auth', () => {
     cy.get('button[type="submit"]').should('be.disabled');
   });
 
-  it('happy path login flow', () => {
+  it('redirects to /admin after admin login', () => {
     cy.login({ username: 'admin', password: 'admin' });
+    cy.url().should('include', '/admin');
+  });
+
+  it('redirects to /shop after normal user login', () => {
+    cy.login({ username: 'test1', password: 'test1' });
     cy.url().should('include', '/shop');
   });
 

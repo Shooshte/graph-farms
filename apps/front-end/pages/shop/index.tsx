@@ -2,34 +2,38 @@ import { useContext, useMemo } from 'react';
 import Intro from '../../components/intro';
 import styles from './shop.module.scss';
 
-// TODO move this to an API endpoint
-import { MOCK_INTRO_RULES } from '../../../../libs/mockData/widgetSettings';
 import UserContext from '../../context/user';
+import WidgetRulesContext from '../../context/rules/index';
 
 const Shop = () => {
   const { userData } = useContext(UserContext);
+  const {
+    widgetRules: { intro },
+  } = useContext(WidgetRulesContext);
 
   // TODO add all four widgets
   const introSettings = useMemo(() => {
     if (userData) {
-      const currentRule = MOCK_INTRO_RULES.filter(({ filterFunction }) => {
-        const filterReturn = filterFunction(userData);
-        return filterReturn;
-      }).reduce((previousValue, currentValue) => {
-        const { specificity, createdAt } = previousValue;
-        if (specificity !== currentValue.specificity) {
-          return specificity > currentValue.specificity
-            ? currentValue
-            : previousValue;
-        } else {
-          return createdAt < currentValue.createdAt
-            ? currentValue
-            : previousValue;
-        }
-      });
+      const currentRule = intro
+        .filter(({ filterFunction }) => {
+          const filterReturn = filterFunction(userData);
+          return filterReturn;
+        })
+        .reduce((previousValue, currentValue) => {
+          const { specificity, createdAt } = previousValue;
+          if (specificity !== currentValue.specificity) {
+            return specificity > currentValue.specificity
+              ? currentValue
+              : previousValue;
+          } else {
+            return createdAt < currentValue.createdAt
+              ? currentValue
+              : previousValue;
+          }
+        });
       return currentRule?.widgetSettings;
     }
-  }, [userData]);
+  }, [intro, userData]);
 
   return (
     <section className={styles.container}>

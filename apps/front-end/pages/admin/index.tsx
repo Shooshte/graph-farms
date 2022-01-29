@@ -1,3 +1,12 @@
-const MockPage = () => <div>Mock Page</div>;
+import styles from './adminInputs.module.scss';
 
-export default MockPage;
+import IntroInputs from '../../components/admin/introInputs';
+
+const AdminInputs = () => (
+  <section className={styles.container}>
+    <h1 className="heading-2">Shop widget rules definitions</h1>
+    <IntroInputs />
+  </section>
+);
+
+export default AdminInputs;

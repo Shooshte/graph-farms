@@ -4,7 +4,7 @@ export interface Line {
 }
 
 export interface Purchase {
-  createdAt: Date;
+  createdAt: string;
   lines: Line[];
 }
 
@@ -14,7 +14,7 @@ export interface UserProfile {
   segment: UserSegment;
   pastMonthPurchases: Purchase[];
   basket: Purchase;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface Item {

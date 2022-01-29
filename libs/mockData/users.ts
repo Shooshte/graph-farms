@@ -10,10 +10,10 @@ export interface MockUser extends UserProfile {
 export const MOCK_USERS: MockUser[] = [
   {
     basket: {
-      createdAt: new Date('2022-01-27'),
+      createdAt: '2022-01-27',
       lines: [],
     },
-    createdAt: new Date('2022-01-27'),
+    createdAt: '2022-01-27',
     id: 'regular',
     username: 'regular',
     password: 'regular',
@@ -23,10 +23,10 @@ export const MOCK_USERS: MockUser[] = [
   },
   {
     basket: {
-      createdAt: new Date('2022-01-27'),
+      createdAt: '2022-01-27',
       lines: [],
     },
-    createdAt: new Date('2022-01-27'),
+    createdAt: '2022-01-27',
     id: 'test1',
     username: 'test1',
     password: 'test1',
@@ -36,10 +36,10 @@ export const MOCK_USERS: MockUser[] = [
   },
   {
     basket: {
-      createdAt: new Date('2022-01-26'),
+      createdAt: '2022-01-26',
       lines: [],
     },
-    createdAt: new Date('2022-01-26'),
+    createdAt: '2022-01-26',
     id: 'test2',
     username: 'test2',
     password: 'test2',
@@ -49,10 +49,10 @@ export const MOCK_USERS: MockUser[] = [
   },
   {
     basket: {
-      createdAt: new Date('2022-01-22'),
+      createdAt: '2022-01-22',
       lines: [],
     },
-    createdAt: new Date('2022-01-22'),
+    createdAt: '2022-01-22',
     id: 'admin',
     username: 'admin',
     password: 'admin',
