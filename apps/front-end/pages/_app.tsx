@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -56,6 +56,27 @@ const App = ({ Component, pageProps }: AppProps) => {
     };
     return { userData, setUserData: handleUserDataChange };
   }, [userData, router]);
+
+  useEffect(() => {
+    if (router.pathname === '/about') {
+      return;
+    }
+    if (userData) {
+      // admin user use case
+      if (userData?.role === 'admin') {
+        router.push('/admin');
+      } else {
+        // non-admin user use case
+        router.push('/login');
+      }
+    } else {
+      // logout use case
+      router.push('/login');
+    }
+
+    // only want to run this when the component mounts
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
