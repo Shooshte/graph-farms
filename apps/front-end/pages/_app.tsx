@@ -19,10 +19,16 @@ const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
 
   const contextValue = useMemo(() => {
-    const handleUserDataChange = (userData: MockUser): void => {
-      setUserData(userData);
-      if (!userData) {
-        router.push('/login');
+    const handleUserDataChange = (newUserData: MockUser): void => {
+      setUserData(newUserData);
+      console.log('newUserData: ', newUserData);
+      // TODO add additional redirect conditions if userData will be loaded from somewhere else than login component that userData actually changes
+      if (newUserData) {
+        if (newUserData?.role === 'admin') {
+          router.push('/admin');
+        } else {
+          router.push('/login');
+        }
       }
     };
     return { userData, setUserData: handleUserDataChange };
