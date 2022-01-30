@@ -12,7 +12,12 @@ export interface IntroWidgetSettings {
 
 export interface LoyaltyWidgetSettings {
   displayOrder?: DisplayOrder;
-  props: LoyaltyRewardProps;
+  props: {
+    borderColor: string;
+    borderSize: string;
+    discountPercentage: number;
+    itemId: string;
+  };
 }
 
 export interface RecommendedItemsWidgetSettings {
@@ -155,14 +160,7 @@ export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
         discountPercentage: 20,
         borderColor: '#7bed9f',
         borderSize: '3px',
-        item: {
-          id: '1',
-          name: 'Coca Cola 1,5 L',
-          defaultPrice: 1.29,
-          availableQuantity: 100,
-          imageURL:
-            'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        },
+        itemId: '1',
       },
     },
   },
@@ -178,14 +176,7 @@ export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
         discountPercentage: 10,
         borderColor: '#eccc68',
         borderSize: '1px',
-        item: {
-          id: '6',
-          name: 'Potatoes 2,5 kg',
-          defaultPrice: 2.79,
-          availableQuantity: 100,
-          imageURL:
-            'https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        },
+        itemId: '6',
       },
     },
   },

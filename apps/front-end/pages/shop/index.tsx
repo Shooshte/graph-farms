@@ -84,7 +84,6 @@ const Shop = () => {
 
   const loyaltySettings = useMemo(() => {
     if (userData) {
-      // TODO abstract this into a function
       const currentRule = loyalty
         .filter(({ filterFunction }) => {
           const filterReturn = filterFunction(userData);
@@ -102,12 +101,16 @@ const Shop = () => {
               : previousValue;
           }
         });
+
       return {
         widgetType: 'loyalty',
-        widgetSettings: currentRule?.widgetSettings,
+        widgetSettings: {
+          displayOrder: currentRule?.widgetSettings.displayOrder,
+          props: { ...currentRule?.widgetSettings?.props, items },
+        },
       };
     }
-  }, [loyalty, userData]);
+  }, [items, loyalty, userData]);
 
   const recommendedSettings = useMemo(() => {
     if (userData) {
@@ -133,11 +136,16 @@ const Shop = () => {
         widgetType: 'recommended',
         widgetSettings: {
           displayOrder: currentRule?.widgetSettings.displayOrder,
-          props: { ...currentRule?.widgetSettings?.props, items, itemGroups },
+          props: {
+            ...currentRule?.widgetSettings?.props,
+            items,
+            itemGroups,
+            loyaltyItemId: loyaltySettings?.widgetSettings?.props?.itemId,
+          },
         },
       };
     }
-  }, [items, itemGroups, recommended, userData]);
+  }, [items, itemGroups, loyaltySettings, recommended, userData]);
 
   const allWidgetSettings = useMemo(() => {
     return [introSettings, loyaltySettings, recommendedSettings]
