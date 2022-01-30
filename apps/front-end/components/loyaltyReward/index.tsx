@@ -23,9 +23,6 @@ const LoyaltyReward = ({
     return item;
   }, [items, itemId]);
 
-  console.log('items: ', items);
-  console.log('itemId: ', itemId);
-
   // TODO this should update shop state item price
   const newPrice = useMemo(() => {
     if (item) {
