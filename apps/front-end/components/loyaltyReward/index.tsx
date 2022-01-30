@@ -33,14 +33,16 @@ const LoyaltyReward = ({
     >
       <h1 className="align-center heading-3">Loyalty reward</h1>
       <div className={styles.imageContainer}>
-        <Image
-          alt="introduction"
-          layout="fill"
-          src={item.imageURL}
-          objectFit="contain"
-          objectPosition="center"
-          quality={100}
-        />
+        {item.imageURL !== '' ? (
+          <Image
+            alt="introduction"
+            layout="fill"
+            src={item.imageURL}
+            objectFit="contain"
+            objectPosition="center"
+            quality={100}
+          />
+        ) : null}
       </div>
       <h3 className="align-center heading-2 margin-top-1 margin-bottom-4">
         {item.name}
