@@ -7,19 +7,33 @@ export interface LoyaltyRewardProps {
   borderColor: string;
   borderSize: string;
   discountPercentage: number;
-  item: Item;
+  itemId: string;
+  items: Item[];
 }
 
 const LoyaltyReward = ({
   borderColor,
   borderSize,
   discountPercentage,
-  item,
+  itemId,
+  items = [],
 }: LoyaltyRewardProps) => {
+  const item = useMemo(() => {
+    const item = items.find((item) => item?.id === itemId);
+    return item;
+  }, [items, itemId]);
+
+  console.log('items: ', items);
+  console.log('itemId: ', itemId);
+
+  // TODO this should update shop state item price
   const newPrice = useMemo(() => {
-    const newPrice =
-      item.defaultPrice - item.defaultPrice * (discountPercentage / 100);
-    return newPrice;
+    if (item) {
+      const newPrice =
+        item?.defaultPrice - item?.defaultPrice * (discountPercentage / 100);
+      return newPrice;
+    }
+    return 0;
   }, [item, discountPercentage]);
 
   return (
@@ -33,17 +47,20 @@ const LoyaltyReward = ({
     >
       <h1 className="align-center heading-3">Loyalty reward</h1>
       <div className={styles.imageContainer}>
-        <Image
-          alt="introduction"
-          layout="fill"
-          src={item.imageURL}
-          objectFit="contain"
-          objectPosition="center"
-          quality={100}
-        />
+        {item && item?.imageURL !== '' ? (
+          <Image
+            alt="introduction"
+            layout="fill"
+            src={item?.imageURL}
+            objectFit="contain"
+            objectPosition="center"
+            quality={100}
+          />
+        ) : null}
       </div>
-      <h2 className="align-center heading-2 margin-top-3">{item.name}</h2>
-
+      <h3 className="align-center heading-2 margin-top-1 margin-bottom-4">
+        {item?.name}
+      </h3>
       <div className={styles.priceContainer}>
         <h2 className="heading-1">
           {newPrice.toLocaleString([], { style: 'currency', currency: 'EUR' })}

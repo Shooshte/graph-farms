@@ -25,7 +25,9 @@ export interface Item {
   imageURL: string;
 }
 
+export type ItemGroupName = 'drinks' | 'vegetables' | 'meat';
+
 export interface ItemGroup {
-  name: string;
+  name: ItemGroupName;
   itemIds: string[];
 }

@@ -3,6 +3,7 @@ import axios from 'axios';
 // TODO replace this with global .env constant
 const API_URL = 'http://localhost:3333/api';
 
+import { Item, ItemGroup } from '../../../libs/types';
 import { MockUser } from '../../../libs/mockData/users';
 
 interface ProfileParams {
@@ -19,5 +20,15 @@ export const postGetProfile = async ({
     password,
   });
 
+  return response.data;
+};
+
+export const getItemsInfo = async (): Promise<Item[]> => {
+  const response = await axios.get(`${API_URL}/getItemsInfo`);
+  return response.data;
+};
+
+export const getItemsGroups = async (): Promise<ItemGroup[]> => {
+  const response = await axios.get(`${API_URL}/getItemsGroups`);
   return response.data;
 };

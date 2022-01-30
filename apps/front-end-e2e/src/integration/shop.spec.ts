@@ -17,7 +17,7 @@ describe('/shop', () => {
         title: 'You work here!',
       },
       {
-        display: 1,
+        display: 0,
         username: 'regular',
         password: 'regular',
         imageUrl:

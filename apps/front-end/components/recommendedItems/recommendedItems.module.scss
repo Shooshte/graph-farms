@@ -17,6 +17,9 @@
   h1,
   h3 {
     width: 100%;
+    --webkit-line-clamp: 3;
+    overflow: hidden;
+    white-space: break-spaces;
   }
 }
 
@@ -26,27 +29,9 @@
   width: 197px;
 }
 
-.pill {
-  background-color: $accent-orange;
-  border-radius: 50%;
-  display: inline-block;
-  font-weight: map-get($font-weights, 'bold');
-  font-size: map-get($font-sizes, '6');
-  @include get-text-color($accent-orange);
-  line-height: 1.2;
-  margin-bottom: map-get($spacing-sizes, '2');
-  padding: map-get($spacing-sizes, '3') map-get($spacing-sizes, '4');
-  text-transform: uppercase;
-}
-
 .priceContainer {
   align-items: center;
   display: flex;
   justify-content: center;
   width: 100%;
-  h2 {
-    margin: 0;
-    margin-left: 25px;
-    margin-right: 0.5rem;
-  }
 }

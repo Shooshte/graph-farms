@@ -1,24 +1,63 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { useAsyncState } from '../../hooks/asyncRequest';
 import Intro from '../../components/intro';
 import LoyaltyReward from '../../components/loyaltyReward';
+import RecommendedItems from '../../components/recommendedItems';
 import styles from './shop.module.scss';
 
 import UserContext from '../../context/user';
 import WidgetRulesContext from '../../context/rules/index';
 
+import { getItemsInfo, getItemsGroups } from '../../services';
+import { Item, ItemGroup } from '../../../../libs/types';
+
+interface ItemsData {
+  items: Item[];
+  itemGroups: ItemGroup[];
+}
+
+const INITIAL_ITEMS_DATA: ItemsData = {
+  items: [],
+  itemGroups: [],
+};
+
 const WIDGET_COMPONENTS = {
   intro: Intro,
   loyalty: LoyaltyReward,
+  recommended: RecommendedItems,
 };
 
 const Shop = () => {
+  const [{ items, itemGroups }, setItemsData] =
+    useState<ItemsData>(INITIAL_ITEMS_DATA);
+
+  const getItemsData = async (): Promise<void> => {
+    try {
+      const items = await getItemsInfo();
+      const itemGroups = await getItemsGroups();
+
+      setItemsData({ items, itemGroups });
+    } catch (e) {
+      setItemsData(INITIAL_ITEMS_DATA);
+      throw e;
+    }
+  };
+
+  const [{ error, isLoading }, makeRequest] = useAsyncState(getItemsData);
+
+  useEffect(() => {
+    makeRequest();
+    // eslint-disable-next-line
+  }, []);
+
   const { userData } = useContext(UserContext);
   const {
-    widgetRules: { intro, loyalty },
+    widgetRules: { intro, loyalty, recommended },
   } = useContext(WidgetRulesContext);
 
   const introSettings = useMemo(() => {
     if (userData) {
+      // TODO abstract this into a function
       const currentRule = intro
         .filter(({ filterFunction }) => {
           const filterReturn = filterFunction(userData);
@@ -62,39 +101,88 @@ const Shop = () => {
               : previousValue;
           }
         });
+
       return {
         widgetType: 'loyalty',
-        widgetSettings: currentRule?.widgetSettings,
+        widgetSettings: {
+          displayOrder: currentRule?.widgetSettings.displayOrder,
+          props: { ...currentRule?.widgetSettings?.props, items },
+        },
       };
     }
-  }, [loyalty, userData]);
+  }, [items, loyalty, userData]);
+
+  const recommendedSettings = useMemo(() => {
+    if (userData) {
+      // TODO abstract this into a function
+      const currentRule = recommended
+        .filter(({ filterFunction }) => {
+          const filterReturn = filterFunction(userData);
+          return filterReturn;
+        })
+        .reduce((previousValue, currentValue) => {
+          const { specificity, createdAt } = previousValue;
+          if (specificity !== currentValue.specificity) {
+            return specificity > currentValue.specificity
+              ? currentValue
+              : previousValue;
+          } else {
+            return createdAt < currentValue.createdAt
+              ? currentValue
+              : previousValue;
+          }
+        });
+      return {
+        widgetType: 'recommended',
+        widgetSettings: {
+          displayOrder: currentRule?.widgetSettings.displayOrder,
+          props: {
+            ...currentRule?.widgetSettings?.props,
+            items,
+            itemGroups,
+            loyaltyItemId: loyaltySettings?.widgetSettings?.props?.itemId,
+          },
+        },
+      };
+    }
+  }, [items, itemGroups, loyaltySettings, recommended, userData]);
 
   const allWidgetSettings = useMemo(() => {
-    return [introSettings, loyaltySettings]
+    return [introSettings, loyaltySettings, recommendedSettings]
       .filter((settings) => settings)
       .sort((a, b) => {
         return a.widgetSettings.displayOrder - b.widgetSettings.displayOrder;
       });
-  }, [introSettings, loyaltySettings]);
+  }, [introSettings, loyaltySettings, recommendedSettings]);
 
   return (
     <section className={styles.container}>
       <h1 className="heading-2">GraphFarm shop</h1>
-      <div className={styles.widgets}>
-        {allWidgetSettings.length > 0
-          ? allWidgetSettings.map((widgetSetting) => {
-              const WidgetComponent =
-                WIDGET_COMPONENTS[widgetSetting.widgetType];
+      <>
+        {isLoading ? (
+          'Loading...'
+        ) : error ? (
+          <div className="message error text margin-top-3 margin-bottom-3">
+            {`There was a problem: ${error}`}
+          </div>
+        ) : (
+          <div className={styles.widgets}>
+            {allWidgetSettings.length > 0
+              ? allWidgetSettings.map((widgetSetting) => {
+                  const WidgetComponent =
+                    WIDGET_COMPONENTS[widgetSetting.widgetType];
 
-              return widgetSetting.widgetSettings.displayOrder > 0 ? (
-                <WidgetComponent
-                  key={widgetSetting.widgetType}
-                  {...widgetSetting.widgetSettings.props}
-                />
-              ) : null;
-            })
-          : null}
-      </div>
+                  return widgetSetting.widgetSettings.displayOrder > 0 ? (
+                    <WidgetComponent
+                      key={widgetSetting.widgetType}
+                      {...widgetSetting.widgetSettings.props}
+                    />
+                  ) : null;
+                })
+              : null}
+          </div>
+        )}
+      </>
     </section>
   );
 };
