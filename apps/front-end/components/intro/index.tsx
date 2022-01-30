@@ -13,18 +13,21 @@ const Intro = ({
   imageUrl,
 }: IntroWidgetProps) => {
   return (
-    <div data-testid="intro" className={styles.container}>
-      <div className={styles.imageContainer}>
-        <Image
-          alt="introduction"
-          layout="fill"
-          src={imageUrl ? imageUrl : rocketSvg}
-          objectFit="contain"
-          objectPosition="center"
-          quality={100}
-        />
+    <div>
+      <h1 className="align-center heading-3">Introduction:</h1>
+      <div data-testid="intro" className={styles.container}>
+        <div className={styles.imageContainer}>
+          <Image
+            alt="introduction"
+            layout="fill"
+            src={imageUrl ? imageUrl : rocketSvg}
+            objectFit="contain"
+            objectPosition="center"
+            quality={100}
+          />
+        </div>
+        <h1 className="align-center heading-3 margin-top-2">{introText}</h1>
       </div>
-      <h1 className="align-center heading-3 margin-top-2">{introText}</h1>
     </div>
   );
 };

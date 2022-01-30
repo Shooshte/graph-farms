@@ -1,5 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useAsyncState } from '../../hooks/asyncRequest';
+import AllItems from '../../components/allItems';
 import Intro from '../../components/intro';
 import LoyaltyReward from '../../components/loyaltyReward';
 import RecommendedItems from '../../components/recommendedItems';
@@ -22,6 +23,7 @@ const INITIAL_ITEMS_DATA: ItemsData = {
 };
 
 const WIDGET_COMPONENTS = {
+  allItems: AllItems,
   intro: Intro,
   loyalty: LoyaltyReward,
   recommended: RecommendedItems,
@@ -52,7 +54,7 @@ const Shop = () => {
 
   const { userData } = useContext(UserContext);
   const {
-    widgetRules: { intro, loyalty, recommended },
+    widgetRules: { intro, loyalty, recommended, allItems },
   } = useContext(WidgetRulesContext);
 
   const introSettings = useMemo(() => {
@@ -147,17 +149,57 @@ const Shop = () => {
     }
   }, [items, itemGroups, loyaltySettings, recommended, userData]);
 
+  const allItemsSettings = useMemo(() => {
+    if (userData) {
+      // TODO abstract this into a function
+      const currentRule = allItems
+        .filter(({ filterFunction }) => {
+          const filterReturn = filterFunction(userData);
+          return filterReturn;
+        })
+        .reduce((previousValue, currentValue) => {
+          const { specificity, createdAt } = previousValue;
+          if (specificity !== currentValue.specificity) {
+            return specificity > currentValue.specificity
+              ? currentValue
+              : previousValue;
+          } else {
+            return createdAt < currentValue.createdAt
+              ? currentValue
+              : previousValue;
+          }
+        });
+
+      return {
+        widgetType: 'allItems',
+        widgetSettings: {
+          displayOrder: currentRule?.widgetSettings.displayOrder,
+          props: {
+            ...currentRule?.widgetSettings?.props,
+            items,
+            itemGroups,
+            loyaltyItemId: loyaltySettings?.widgetSettings?.props?.itemId,
+          },
+        },
+      };
+    }
+  }, [allItems, items, itemGroups, loyaltySettings, userData]);
+
   const allWidgetSettings = useMemo(() => {
-    return [introSettings, loyaltySettings, recommendedSettings]
+    return [
+      allItemsSettings,
+      introSettings,
+      loyaltySettings,
+      recommendedSettings,
+    ]
       .filter((settings) => settings)
       .sort((a, b) => {
         return a.widgetSettings.displayOrder - b.widgetSettings.displayOrder;
       });
-  }, [introSettings, loyaltySettings, recommendedSettings]);
+  }, [allItemsSettings, introSettings, loyaltySettings, recommendedSettings]);
 
   return (
     <section className={styles.container}>
-      <h1 className="heading-2">GraphFarm shop</h1>
       <>
         {isLoading ? (
           'Loading...'

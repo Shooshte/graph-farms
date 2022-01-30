@@ -12,8 +12,9 @@
 }
 
 .widgets {
-  display: grid;
-  grid-gap: map-get($spacing-sizes, '3');
-  grid-template-columns: repeat(auto-fill, 245px);
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
 }
