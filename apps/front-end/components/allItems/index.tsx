@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import { Item, ItemGroup, ItemGroupName } from '../../../../libs/types';
+import { Item, ItemGroup, ItemGroupName } from '../../libs/types';
 import Pagination from './pagination';
 
 import cardStyles from '../card.module.scss';

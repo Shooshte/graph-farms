@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-// TODO replace this with global .env constant
-const API_URL = 'http://localhost:3333/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-import { Item, ItemGroup } from '../../../libs/types';
-import { MockUser } from '../../../libs/mockData/users';
+import { Item, ItemGroup } from '../libs/types';
+import { MockUser } from '../libs/mockData/users';
 
 interface ProfileParams {
   username: string;

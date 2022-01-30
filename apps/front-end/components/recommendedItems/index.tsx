@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import cardStyles from '../card.module.scss';
 import styles from './recommendedItems.module.scss';
-import { Item, ItemGroup, ItemGroupName } from '../../../../libs/types/index';
+import { Item, ItemGroup, ItemGroupName } from '../../libs/types/index';
 
 export interface RecommendedItemsProps {
   includeItemImages: boolean;

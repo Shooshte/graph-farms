@@ -1,4 +1,4 @@
-import { MOCK_USERS } from '../../../../libs/mockData/users';
+import { MOCK_USERS } from '../../libs/mockData/users';
 
 import styles from './register.module.scss';
 

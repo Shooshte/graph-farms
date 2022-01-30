@@ -10,10 +10,10 @@ import UserContext from '../../context/user';
 import WidgetRulesContext from '../../context/rules/index';
 
 import { getItemsInfo, getItemsGroups } from '../../services';
-import { Item, ItemGroup } from '../../../../libs/types';
+import { Item, ItemGroup } from '../../libs/types';
 
-import { MOCK_PRICE_RULES } from '../../../../libs/mockData/pricesSettings';
-import { MOCK_ITEM_GROUPS } from '../../../../libs/mockData/items';
+import { MOCK_PRICE_RULES } from '../../libs/mockData/pricesSettings';
+import { MOCK_ITEM_GROUPS } from '../../libs/mockData/items';
 
 interface ItemsData {
   items: Item[];

@@ -1,4 +1,4 @@
-import { MOCK_ITEM_GROUPS } from '../mockData/items';
+import { MOCK_ITEM_GROUPS } from './items';
 
 import { ItemGroupName } from '../types';
 import { RuleType, RuleFilterFunction } from './widgetSettings';

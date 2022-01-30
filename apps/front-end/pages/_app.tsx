@@ -15,8 +15,8 @@ import styles from './app.module.scss';
 import {
   INITIAL_WIDGET_RULES,
   WidgetRules,
-} from '../../../libs/mockData/widgetSettings';
-import { MockUser } from '../../../libs/mockData/users';
+} from '../libs/mockData/widgetSettings';
+import { MockUser } from '../libs/mockData/users';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [userData, setUserData] = useState<MockUser>(undefined);

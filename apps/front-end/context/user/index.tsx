@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { MockUser } from '../../../../libs/mockData/users';
+import { MockUser } from '../../libs/mockData/users';
 
 interface handleUserDataChangeArgs {
   newUserData: MockUser;

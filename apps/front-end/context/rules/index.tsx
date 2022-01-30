@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { WidgetRules } from '../../../../libs/mockData/widgetSettings';
+import { WidgetRules } from '../../libs/mockData/widgetSettings';
 
 export type WidgetRulesContextState =
   | {

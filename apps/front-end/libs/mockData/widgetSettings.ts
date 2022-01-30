@@ -1,4 +1,4 @@
-import { IntroWidgetProps } from '../../apps/front-end/components/intro';
+import { IntroWidgetProps } from '../../components/intro';
 import { ItemGroupName } from '../types/index';
 import { MockUser } from './users';
 
@@ -83,9 +83,11 @@ export const MOCK_ALL_ITEMS_RULES: AllItemsWidgetRule[] = [
     filterFunction: (user) => {
       const { pastMonthPurchases } = user;
       return pastMonthPurchases.reduce((previousValue, currentValue) => {
-        let purchasedItem = previousValue;
+        let purchasedItem: boolean = previousValue;
         currentValue.lines.forEach((line) => {
-          return line.itemId === '1';
+          if (line.itemId === '1') {
+            purchasedItem = true;
+          }
         });
         return purchasedItem;
       }, false);
