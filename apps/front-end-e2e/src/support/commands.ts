@@ -13,6 +13,11 @@ declare namespace Cypress {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Chainable<Subject> {
     login(credentials: { username: string; password: string }): void;
+    clickNavigation(arguments: {
+      initialUrl?: string;
+      text: string;
+      to: string;
+    });
   }
 }
 //
@@ -25,6 +30,14 @@ Cypress.Commands.add('login', ({ username, password }) => {
   cy.get('input[name="password"]').type(password);
   cy.get('button[type="submit"]').click();
   cy.wait('@postLogin');
+});
+
+Cypress.Commands.add('clickNavigation', ({ initialUrl = '/', text, to }) => {
+  cy.intercept('POST', '**/api/getProfile').as('postLogin');
+  window.history.pushState(null, null, initialUrl);
+  cy.get('nav').contains(text).click();
+  // wait a bit if the url will update correctly
+  cy.url({ timeout: 10000 }).should('include', to);
 });
 //
 // -- This is a child command --

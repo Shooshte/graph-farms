@@ -21,12 +21,12 @@ describe('user auth', () => {
 
   it('redirects to /admin after admin login', () => {
     cy.login({ username: 'admin', password: 'admin' });
-    cy.url().should('include', '/admin');
+    cy.url({ timeout: 10000 }).should('include', '/admin');
   });
 
   it('redirects to /shop after normal user login', () => {
     cy.login({ username: 'test1', password: 'test1' });
-    cy.url().should('include', '/shop');
+    cy.url({ timeout: 10000 }).should('include', '/shop');
   });
 
   const ADMIN_LINKS = [
@@ -98,7 +98,7 @@ describe('user auth', () => {
     const testDescription = `It should stay on the page when ${to} is first loaded.`;
     it(testDescription, () => {
       cy.visit(to);
-      cy.url().should('include', to);
+      cy.url({ timeout: 10000 }).should('include', to);
     });
   });
 
@@ -106,7 +106,7 @@ describe('user auth', () => {
     const testDescription = `It should stay on the page when ${to} is first loaded.`;
     it(testDescription, () => {
       cy.visit(to);
-      cy.url().should('include', to);
+      cy.url({ timeout: 10000 }).should('include', to);
     });
   });
 
@@ -114,7 +114,7 @@ describe('user auth', () => {
     const testDescription = `It should redirect to the login page when ${to} is first loaded.`;
     it(testDescription, () => {
       cy.visit(to);
-      cy.url().should('include', '/login');
+      cy.url({ timeout: 10000 }).should('include', '/login');
     });
   });
 
@@ -122,7 +122,7 @@ describe('user auth', () => {
     const testDescription = `It should redirect to the login page when ${to} is first loaded.`;
     it(testDescription, () => {
       cy.visit(to);
-      cy.url().should('include', '/login');
+      cy.url({ timeout: 10000 }).should('include', '/login');
     });
   });
 
@@ -131,8 +131,7 @@ describe('user auth', () => {
 
     it(testDescription, () => {
       cy.visit('/register');
-      cy.get('nav').contains(text).click();
-      cy.url().should('include', to);
+      cy.clickNavigation({ initialUrl: '/register', text, to });
     });
   });
 
@@ -141,8 +140,7 @@ describe('user auth', () => {
 
     it(testDescription, () => {
       cy.visit('/');
-      cy.get('nav').contains(text).click();
-      cy.url().should('include', to);
+      cy.clickNavigation({ text, to });
     });
   });
 
@@ -151,8 +149,7 @@ describe('user auth', () => {
 
     it(testDescription, () => {
       cy.login({ username: 'test1', password: 'test1' });
-      cy.get('nav').contains(text).click();
-      cy.url().should('include', to);
+      cy.clickNavigation({ text, to });
     });
   });
 
@@ -161,8 +158,7 @@ describe('user auth', () => {
 
     it(testDescription, () => {
       cy.login({ username: 'test1', password: 'test1' });
-      cy.get('nav').contains(text).click();
-      cy.url().should('include', to);
+      cy.clickNavigation({ text, to });
     });
   });
 
@@ -171,8 +167,7 @@ describe('user auth', () => {
 
     it(testDescription, () => {
       cy.login({ username: 'admin', password: 'admin' });
-      cy.get('nav').contains(text).click();
-      cy.url().should('include', to);
+      cy.clickNavigation({ text, to });
     });
   });
 
@@ -181,8 +176,7 @@ describe('user auth', () => {
 
     it(testDescription, () => {
       cy.login({ username: 'admin', password: 'admin' });
-      cy.get('nav').contains(text).click();
-      cy.url().should('include', to);
+      cy.clickNavigation({ text, to });
     });
   });
 
@@ -191,9 +185,7 @@ describe('user auth', () => {
 
     it(testDescription, () => {
       cy.login({ username: 'admin', password: 'admin' });
-      window.history.pushState(null, null, '/');
-      cy.get('nav').contains(text).click();
-      cy.url().should('include', to);
+      cy.clickNavigation({ text, to });
     });
   });
 });
