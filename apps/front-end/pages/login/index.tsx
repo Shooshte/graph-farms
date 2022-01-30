@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 
 import styles from './login.module.scss';
 
-import { postGetProfile } from '../../services/user';
+import { postGetProfile } from '../../services';
 import UserContext from '../../context/user';
 
 const Login = () => {
