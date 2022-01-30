@@ -126,6 +126,7 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
   },
 ];
 
+// TODO refactor this so only item id is stored inside the rule
 export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
   {
     createdAt: '2022-01-29',
