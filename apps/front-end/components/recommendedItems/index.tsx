@@ -8,6 +8,7 @@ export interface RecommendedItemsProps {
   items: Item[];
   itemsCount: number;
   itemGroups: ItemGroup[];
+  loyaltyItemId?: string;
   shownItemGroups: ItemGroupName[];
 }
 
@@ -16,6 +17,7 @@ const RecommendedItems = ({
   items = [],
   itemsCount,
   itemGroups = [],
+  loyaltyItemId,
   shownItemGroups,
 }: RecommendedItemsProps) => {
   const shownItems = useMemo(() => {
@@ -29,7 +31,7 @@ const RecommendedItems = ({
         if (shownItemGroups.includes(name)) {
           const newValues = [];
           itemIds.forEach((itemId) => {
-            if (!previousValue.includes(itemId)) {
+            if (!previousValue.includes(itemId) && itemId !== loyaltyItemId) {
               newValues.push(itemId);
             }
           });
@@ -45,7 +47,7 @@ const RecommendedItems = ({
         return shownIds.includes(id);
       })
       .slice(0, itemsCount);
-  }, [items, itemGroups, itemsCount, shownItemGroups]);
+  }, [loyaltyItemId, items, itemGroups, itemsCount, shownItemGroups]);
 
   return shownItems.map((item) => (
     <div
