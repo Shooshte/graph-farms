@@ -9,7 +9,7 @@
   @include get-text-color($accent-orange);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   max-width: calc(
     245px - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
   );

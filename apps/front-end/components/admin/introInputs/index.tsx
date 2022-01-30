@@ -36,18 +36,16 @@ const IntroInputs = () => {
               className={styles.widgetRule}
               key={`widget-rule-${imageUrl}-${introText}-${id}`}
             >
-              <p className="text">
-                {filterArguments.length > 0 ? (
-                  <h4 className="heading-4">
-                    When user has&nbsp;
-                    {filterArguments.map((argument) => {
-                      return `${argument[0]} : ${argument[1]} `;
-                    })}
-                  </h4>
-                ) : (
-                  <h4 className="heading-4">For all users</h4>
-                )}
-              </p>
+              {filterArguments.length > 0 ? (
+                <h4 className="heading-4">
+                  When user has&nbsp;
+                  {filterArguments.map((argument) => {
+                    return `${argument[0]} : ${argument[1]} `;
+                  })}
+                </h4>
+              ) : (
+                <h4 className="heading-4">For all users</h4>
+              )}
               {displayOrder > 0 ? (
                 <>
                   <p className="text">

@@ -1,9 +1,17 @@
 import { IntroWidgetProps } from '../../apps/front-end/components/intro';
+import { LoyaltyRewardProps } from '../../apps/front-end/components/loyaltyReward';
 import { MockUser } from './users';
 
+type DisplayOrder = 0 | 1 | 2 | 3 | 4;
+
 export interface IntroWidgetSettings {
-  displayOrder?: 0 | 1 | 2 | 3 | 4;
+  displayOrder?: DisplayOrder;
   props?: IntroWidgetProps;
+}
+
+export interface LoyaltyWidgetSettings {
+  displayOrder?: DisplayOrder;
+  props?: LoyaltyRewardProps;
 }
 
 type RuleFilterFunction = (user: MockUser) => boolean;
@@ -20,14 +28,21 @@ export type RuleType =
 
 export type FilterArgument = [keyof MockUser, any];
 
-export interface IntroWidgetRule {
+interface WidgetRule {
   createdAt: string;
   filterArguments?: FilterArgument[];
   filterFunction: RuleFilterFunction;
   id: string;
   specificity: number;
   type: RuleType;
+}
+
+export interface IntroWidgetRule extends WidgetRule {
   widgetSettings: IntroWidgetSettings;
+}
+
+export interface LoyaltyWidgetRule extends WidgetRule {
+  widgetSettings: LoyaltyWidgetSettings;
 }
 
 // TODO enable admin editing of these rules
@@ -55,11 +70,11 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
     specificity: 2,
     type: 'userSegment',
     widgetSettings: {
-      displayOrder: 0,
+      displayOrder: 2,
       props: {
         imageUrl:
-          'https://images.unsplash.com/photo-1534951009808-766178b47a4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        introText: 'Special retiree discounts every wednesday!',
+          'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+        introText: 'Welcome back!',
       },
     },
   },
@@ -111,10 +126,62 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
   },
 ];
 
+export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
+  {
+    createdAt: '2022-01-29',
+    filterArguments: [['pastMonthPurchases', '> 5']],
+    filterFunction: (user) => user.pastMonthPurchases.length > 5,
+    id: '5',
+    specificity: 7,
+    type: 'userPurchases',
+    widgetSettings: {
+      displayOrder: 1,
+      props: {
+        discountPercentage: 20,
+        borderColor: '#7bed9f',
+        borderSize: '3px',
+        item: {
+          id: '1',
+          name: 'Gazirana Pijača Coca Cola 1,5 L',
+          defaultPrice: 1.29,
+          availableQuantity: 100,
+          imageURL:
+            'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        },
+      },
+    },
+  },
+  {
+    createdAt: '2022-01-28',
+    filterFunction: (user) => !!user,
+    id: '5',
+    specificity: 8,
+    type: 'userSegment',
+    widgetSettings: {
+      displayOrder: 1,
+      props: {
+        discountPercentage: 10,
+        borderColor: '#eccc68',
+        borderSize: '1px',
+        item: {
+          id: '1',
+          name: 'Gazirana Pijača Coca Cola 1,5 L',
+          defaultPrice: 1.29,
+          availableQuantity: 100,
+          imageURL:
+            'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        },
+      },
+    },
+  },
+];
+
 export interface WidgetRules {
   intro: IntroWidgetRule[];
+  loyalty: LoyaltyWidgetRule[];
 }
 
 export const INITIAL_WIDGET_RULES: WidgetRules = {
   intro: MOCK_INTRO_RULES,
+  loyalty: MOCK_LOYALTY_RULES,
 };
