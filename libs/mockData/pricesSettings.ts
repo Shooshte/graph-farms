@@ -26,7 +26,7 @@ export const MOCK_PRICE_RULES: PriceRule[] = [
     ruleType: 'userSegment',
     specificity: 2,
   },
-  // users who have had more than 3 purchases where get a 10% discount from all item groups
+  // users who have had more than 3 purchases where get a 10% discount from all item groups.
   {
     createdAt: '2022-01-04',
     filterFunction: (user) => user.pastMonthPurchases.length > 3,
