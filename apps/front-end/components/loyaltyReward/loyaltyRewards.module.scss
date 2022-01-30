@@ -13,7 +13,7 @@
   );
   justify-content: space-between;
   margin-right: map-get($spacing-sizes, '4');
-  margin-bottom: map-get($spacing-sizes, '4');
+  margin-bottom: map-get($spacing-sizes, '2');
   width: calc(
     245px - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
   );
