@@ -1,9 +1,17 @@
 import { IntroWidgetProps } from '../../apps/front-end/components/intro';
-import { LoyaltyRewardProps } from '../../apps/front-end/components/loyaltyReward';
 import { ItemGroupName } from '../types/index';
 import { MockUser } from './users';
 
 type DisplayOrder = 0 | 1 | 2 | 3 | 4;
+
+export interface AllItemsWidgetSettings {
+  displayOrder?: DisplayOrder;
+  props: {
+    boldFirstTen: boolean;
+    hiddenItemGroups: ItemGroupName[];
+    numberOfItems: number;
+  };
+}
 
 export interface IntroWidgetSettings {
   displayOrder?: DisplayOrder;
@@ -64,7 +72,43 @@ export interface RecommendedItemsRule extends WidgetRule {
   widgetSettings: RecommendedItemsWidgetSettings;
 }
 
-// TODO enable admin editing of these rules
+export interface AllItemsWidgetRule extends WidgetRule {
+  widgetSettings: AllItemsWidgetSettings;
+}
+
+export const MOCK_ALL_ITEMS_RULES: AllItemsWidgetRule[] = [
+  {
+    createdAt: '2022-01-28',
+    filterFunction: (user) => user.segment === 'regular',
+    id: '0',
+    specificity: 8,
+    type: 'userSegment',
+    widgetSettings: {
+      displayOrder: 2,
+      props: {
+        boldFirstTen: false,
+        hiddenItemGroups: ['meat'],
+        numberOfItems: 4,
+      },
+    },
+  },
+  {
+    createdAt: '2022-01-28',
+    filterFunction: (user) => !!user,
+    id: '1',
+    specificity: 8,
+    type: 'allUsers',
+    widgetSettings: {
+      displayOrder: 2,
+      props: {
+        boldFirstTen: true,
+        hiddenItemGroups: ['drinks'],
+        numberOfItems: 4,
+      },
+    },
+  },
+];
+
 export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
   {
     createdAt: '2022-01-25',
@@ -145,7 +189,6 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
   },
 ];
 
-// TODO refactor this so only item id is stored inside the rule
 export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
   {
     createdAt: '2022-01-29',
@@ -185,6 +228,21 @@ export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
 export const MOCK_RECOMMENDED_RULES: RecommendedItemsRule[] = [
   {
     createdAt: '2022-01-28',
+    filterFunction: (user) => user.segment === 'regular',
+    id: '1',
+    specificity: 8,
+    type: 'userSegment',
+    widgetSettings: {
+      displayOrder: 3,
+      props: {
+        includeItemImages: true,
+        itemsCount: 3,
+        shownItemGroups: ['meat'],
+      },
+    },
+  },
+  {
+    createdAt: '2022-01-28',
     filterFunction: (user) => user.segment === 'retired',
     id: '1',
     specificity: 8,
@@ -216,12 +274,14 @@ export const MOCK_RECOMMENDED_RULES: RecommendedItemsRule[] = [
 ];
 
 export interface WidgetRules {
+  allItems: AllItemsWidgetRule[];
   intro: IntroWidgetRule[];
   loyalty: LoyaltyWidgetRule[];
   recommended: RecommendedItemsRule[];
 }
 
 export const INITIAL_WIDGET_RULES: WidgetRules = {
+  allItems: MOCK_ALL_ITEMS_RULES,
   intro: MOCK_INTRO_RULES,
   loyalty: MOCK_LOYALTY_RULES,
   recommended: MOCK_RECOMMENDED_RULES,

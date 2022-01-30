@@ -23,7 +23,6 @@ const LoyaltyReward = ({
     return item;
   }, [items, itemId]);
 
-  // TODO this should update shop state item price
   const newPrice = useMemo(() => {
     if (item) {
       const newPrice =
@@ -38,8 +37,9 @@ const LoyaltyReward = ({
       data-testid="loyalty-rewards"
       className={styles.container}
       style={{
-        borderColor: borderColor,
-        borderWidth: borderSize,
+        outlineColor: borderColor,
+        outlineWidth: borderSize,
+        outlineOffset: `-${borderSize}`,
       }}
     >
       <h1 className="align-center heading-3">Loyalty reward</h1>

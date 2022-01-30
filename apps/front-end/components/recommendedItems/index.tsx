@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import Image from 'next/image';
-import styles from './recommendedItems.module.scss';
+import styles from '../card.module.scss';
 import { Item, ItemGroup, ItemGroupName } from '../../../../libs/types/index';
 
 export interface RecommendedItemsProps {
@@ -52,12 +52,12 @@ const RecommendedItems = ({
   return shownItems.map((item) => (
     <div
       data-testid="recommended-item"
-      className={styles.container}
+      className={styles.cardContainer}
       key={item.id}
     >
       <h1 className="align-center heading-3">We recommend</h1>
       <div className={styles.imageContainer}>
-        {includeItemImages ? (
+        {includeItemImages && item.imageURL && item.imageURL !== '' ? (
           <Image
             alt="introduction"
             layout="fill"
