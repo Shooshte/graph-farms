@@ -37,7 +37,7 @@ export interface RecommendedItemsWidgetSettings {
   };
 }
 
-type RuleFilterFunction = (user: MockUser) => boolean;
+export type RuleFilterFunction = (user: MockUser) => boolean;
 
 export type RuleType =
   | 'userId'

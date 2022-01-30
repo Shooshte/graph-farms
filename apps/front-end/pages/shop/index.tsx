@@ -12,6 +12,9 @@ import WidgetRulesContext from '../../context/rules/index';
 import { getItemsInfo, getItemsGroups } from '../../services';
 import { Item, ItemGroup } from '../../../../libs/types';
 
+import { MOCK_PRICE_RULES } from '../../../../libs/mockData/pricesSettings';
+import { MOCK_ITEM_GROUPS } from '../../../../libs/mockData/items';
+
 interface ItemsData {
   items: Item[];
   itemGroups: ItemGroup[];
@@ -38,7 +41,69 @@ const Shop = () => {
       const items = await getItemsInfo();
       const itemGroups = await getItemsGroups();
 
-      setItemsData({ items, itemGroups });
+      const itemsWithAdjustedPrice = items.map((item) => {
+        const currentActiveRules = MOCK_PRICE_RULES.filter(
+          ({ filterFunction }) => {
+            const filterReturn = filterFunction(userData);
+            return filterReturn;
+          }
+        ).filter((rule) => {
+          // check if rule itemId matches item id
+          if (rule.itemId === item.id) {
+            return true;
+          }
+          // check if rule item group includes item id
+          let includedInGroups = false;
+          rule.itemGroups?.forEach((groupName) => {
+            const group = MOCK_ITEM_GROUPS.find(
+              (group) => group.name === groupName
+            );
+            if (group.itemIds.includes(item.id)) {
+              includedInGroups = true;
+            }
+          });
+          return includedInGroups;
+        });
+
+        const currentActiveRule =
+          currentActiveRules.length > 0
+            ? currentActiveRules.reduce((previousValue, currentValue) => {
+                if (previousValue?.specificity !== currentValue.specificity) {
+                  return previousValue?.specificity > currentValue.specificity
+                    ? currentValue
+                    : previousValue;
+                } else {
+                  return previousValue?.createdAt < currentValue.createdAt
+                    ? currentValue
+                    : previousValue;
+                }
+              })
+            : undefined;
+
+        if (currentActiveRule) {
+          const { defaultPrice } = item;
+          if (currentActiveRule?.percentageDiscount) {
+            const newPrice =
+              item?.defaultPrice -
+              item?.defaultPrice *
+                (currentActiveRule?.percentageDiscount / 100);
+            return {
+              ...item,
+              defaultPrice: newPrice,
+            };
+          } else if (currentActiveRule?.priceDeduction) {
+            const newPrice = defaultPrice - currentActiveRule.priceDeduction;
+            return {
+              ...item,
+              defaultPrice: newPrice,
+            };
+          }
+          return { ...item };
+        }
+        return { ...item };
+      });
+
+      setItemsData({ items: itemsWithAdjustedPrice, itemGroups });
     } catch (e) {
       setItemsData(INITIAL_ITEMS_DATA);
       throw e;
