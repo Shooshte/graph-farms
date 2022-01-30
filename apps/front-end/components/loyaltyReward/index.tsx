@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import Image from 'next/image';
 import styles from './loyaltyRewards.module.scss';
-import { Item } from '../../../../libs/types/index';
+import { Item } from '../../libs/types/index';
 
 export interface LoyaltyRewardProps {
   borderColor: string;

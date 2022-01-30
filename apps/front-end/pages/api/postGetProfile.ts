@@ -1,4 +1,4 @@
-import { MOCK_USERS } from '../../../libs/mockData/users';
+import { MOCK_USERS } from '../../libs/mockData/users';
 
 export default function handler(req, res) {
   try {
