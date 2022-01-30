@@ -14,10 +14,18 @@ export const postGetProfile = async ({
   username,
   password,
 }: ProfileParams): Promise<MockUser> => {
-  const response = await axios.post(`${API_URL}/getProfile`, {
-    username,
-    password,
-  });
+  const response = await axios.post(
+    `${API_URL}/getProfile`,
+    {
+      username,
+      password,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
   return response.data;
 };
