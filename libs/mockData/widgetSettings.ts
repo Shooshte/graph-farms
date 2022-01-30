@@ -1,17 +1,27 @@
 import { IntroWidgetProps } from '../../apps/front-end/components/intro';
 import { LoyaltyRewardProps } from '../../apps/front-end/components/loyaltyReward';
+import { ItemGroupName } from '../types/index';
 import { MockUser } from './users';
 
 type DisplayOrder = 0 | 1 | 2 | 3 | 4;
 
 export interface IntroWidgetSettings {
   displayOrder?: DisplayOrder;
-  props?: IntroWidgetProps;
+  props: IntroWidgetProps;
 }
 
 export interface LoyaltyWidgetSettings {
   displayOrder?: DisplayOrder;
-  props?: LoyaltyRewardProps;
+  props: LoyaltyRewardProps;
+}
+
+export interface RecommendedItemsWidgetSettings {
+  displayOrder?: DisplayOrder;
+  props: {
+    includeItemImages: boolean;
+    itemsCount: number;
+    shownItemGroups: ItemGroupName[];
+  };
 }
 
 type RuleFilterFunction = (user: MockUser) => boolean;
@@ -45,6 +55,10 @@ export interface LoyaltyWidgetRule extends WidgetRule {
   widgetSettings: LoyaltyWidgetSettings;
 }
 
+export interface RecommendedItemsRule extends WidgetRule {
+  widgetSettings: RecommendedItemsWidgetSettings;
+}
+
 // TODO enable admin editing of these rules
 export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
   {
@@ -70,7 +84,7 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
     specificity: 2,
     type: 'userSegment',
     widgetSettings: {
-      displayOrder: 2,
+      displayOrder: 0,
       props: {
         imageUrl:
           'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
@@ -80,7 +94,7 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
   },
   {
     createdAt: '2022-01-29',
-    filterArguments: [['segment', 'retired']],
+    filterArguments: [['segment', 'blue-collar']],
     filterFunction: (user) => user.segment === 'retired',
     id: '3',
     specificity: 2,
@@ -118,7 +132,7 @@ export const MOCK_INTRO_RULES: IntroWidgetRule[] = [
     specificity: 2,
     type: 'userSegment',
     widgetSettings: {
-      displayOrder: 1,
+      displayOrder: 3,
       props: {
         introText: 'You work here!',
       },
@@ -136,7 +150,7 @@ export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
     specificity: 7,
     type: 'userPurchases',
     widgetSettings: {
-      displayOrder: 1,
+      displayOrder: 3,
       props: {
         discountPercentage: 20,
         borderColor: '#7bed9f',
@@ -177,12 +191,47 @@ export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
   },
 ];
 
+export const MOCK_RECOMMENDED_RULES: RecommendedItemsRule[] = [
+  {
+    createdAt: '2022-01-28',
+    filterFunction: (user) => user.segment === 'retired',
+    id: '1',
+    specificity: 8,
+    type: 'userSegment',
+    widgetSettings: {
+      displayOrder: 3,
+      props: {
+        includeItemImages: false,
+        itemsCount: 3,
+        shownItemGroups: ['vegetables'],
+      },
+    },
+  },
+  {
+    createdAt: '2022-01-28',
+    filterFunction: (user) => !!user,
+    id: '1',
+    specificity: 8,
+    type: 'allUsers',
+    widgetSettings: {
+      displayOrder: 2,
+      props: {
+        includeItemImages: true,
+        itemsCount: 3,
+        shownItemGroups: ['drinks'],
+      },
+    },
+  },
+];
+
 export interface WidgetRules {
   intro: IntroWidgetRule[];
   loyalty: LoyaltyWidgetRule[];
+  recommended: RecommendedItemsRule[];
 }
 
 export const INITIAL_WIDGET_RULES: WidgetRules = {
   intro: MOCK_INTRO_RULES,
   loyalty: MOCK_LOYALTY_RULES,
+  recommended: MOCK_RECOMMENDED_RULES,
 };
