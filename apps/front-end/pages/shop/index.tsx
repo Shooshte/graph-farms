@@ -1,4 +1,5 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { useAsyncState } from '../../hooks/asyncRequest';
 import Intro from '../../components/intro';
 import LoyaltyReward from '../../components/loyaltyReward';
 import styles from './shop.module.scss';
@@ -6,12 +7,46 @@ import styles from './shop.module.scss';
 import UserContext from '../../context/user';
 import WidgetRulesContext from '../../context/rules/index';
 
+import { getItemsInfo, getItemsGroups } from '../../services';
+import { Item, ItemGroup } from '../../../../libs/types';
+
+interface ItemsData {
+  items: Item[];
+  itemGroups: ItemGroup[];
+}
+
+const INITIAL_ITEMS_DATA: ItemsData = {
+  items: [],
+  itemGroups: [],
+};
+
 const WIDGET_COMPONENTS = {
   intro: Intro,
   loyalty: LoyaltyReward,
 };
 
 const Shop = () => {
+  const [itemsData, setItemsData] = useState<ItemsData>(INITIAL_ITEMS_DATA);
+
+  const getItemsData = async (): Promise<void> => {
+    try {
+      const items = await getItemsInfo();
+      const itemGroups = await getItemsGroups();
+
+      setItemsData({ items, itemGroups });
+    } catch (e) {
+      setItemsData(INITIAL_ITEMS_DATA);
+      throw e;
+    }
+  };
+
+  const [{ error, isLoading }, makeRequest] = useAsyncState(getItemsData);
+
+  useEffect(() => {
+    makeRequest();
+    // eslint-disable-next-line
+  }, []);
+
   const { userData } = useContext(UserContext);
   const {
     widgetRules: { intro, loyalty },
@@ -19,6 +54,7 @@ const Shop = () => {
 
   const introSettings = useMemo(() => {
     if (userData) {
+      // TODO abstract this into a function
       const currentRule = intro
         .filter(({ filterFunction }) => {
           const filterReturn = filterFunction(userData);
@@ -45,6 +81,7 @@ const Shop = () => {
 
   const loyaltySettings = useMemo(() => {
     if (userData) {
+      // TODO abstract this into a function
       const currentRule = loyalty
         .filter(({ filterFunction }) => {
           const filterReturn = filterFunction(userData);
@@ -77,24 +114,36 @@ const Shop = () => {
       });
   }, [introSettings, loyaltySettings]);
 
+  console.log('itemsData:', itemsData);
+
   return (
     <section className={styles.container}>
       <h1 className="heading-2">GraphFarm shop</h1>
-      <div className={styles.widgets}>
-        {allWidgetSettings.length > 0
-          ? allWidgetSettings.map((widgetSetting) => {
-              const WidgetComponent =
-                WIDGET_COMPONENTS[widgetSetting.widgetType];
+      <>
+        {isLoading ? (
+          'Loading...'
+        ) : error ? (
+          <div className="message error text margin-top-3 margin-bottom-3">
+            {`There was a problem: ${error}`}
+          </div>
+        ) : (
+          <div className={styles.widgets}>
+            {allWidgetSettings.length > 0
+              ? allWidgetSettings.map((widgetSetting) => {
+                  const WidgetComponent =
+                    WIDGET_COMPONENTS[widgetSetting.widgetType];
 
-              return widgetSetting.widgetSettings.displayOrder > 0 ? (
-                <WidgetComponent
-                  key={widgetSetting.widgetType}
-                  {...widgetSetting.widgetSettings.props}
-                />
-              ) : null;
-            })
-          : null}
-      </div>
+                  return widgetSetting.widgetSettings.displayOrder > 0 ? (
+                    <WidgetComponent
+                      key={widgetSetting.widgetType}
+                      {...widgetSetting.widgetSettings.props}
+                    />
+                  ) : null;
+                })
+              : null}
+          </div>
+        )}
+      </>
     </section>
   );
 };

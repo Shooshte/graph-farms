@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 
 // mock data
+import { MOCK_ITEMS, MOCK_ITEM_GROUPS } from '../../../libs/mockData/items';
 import { MOCK_USERS } from '../../../libs/mockData/users';
 
 const app = express();
@@ -31,7 +32,11 @@ app.post('/api/getProfile', (req, res) => {
 });
 
 app.get('/api/getItemsInfo', (req, res) => {
-  res.status(404).send('Not implemented yet!');
+  res.status(200).send(MOCK_ITEMS);
+});
+
+app.get('/api/getItemsGroups', (req, res) => {
+  res.status(200).send(MOCK_ITEM_GROUPS);
 });
 
 const port = process.env.port || 3333;
