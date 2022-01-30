@@ -14,7 +14,8 @@
     245px - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
   );
   padding: map-get($spacing-sizes, '2');
-  h1 {
+  h1,
+  h3 {
     width: 100%;
   }
 }
@@ -30,7 +31,7 @@
   border-radius: 50%;
   display: inline-block;
   font-weight: map-get($font-weights, 'bold');
-  font-size: map-get($font-sizes, '5');
+  font-size: map-get($font-sizes, '6');
   @include get-text-color($accent-orange);
   line-height: 1.2;
   margin-bottom: map-get($spacing-sizes, '2');

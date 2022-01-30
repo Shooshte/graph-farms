@@ -42,8 +42,9 @@ const LoyaltyReward = ({
           quality={100}
         />
       </div>
-      <h2 className="align-center heading-2 margin-top-3">{item.name}</h2>
-
+      <h3 className="align-center heading-2 margin-top-1 margin-bottom-4">
+        {item.name}
+      </h3>
       <div className={styles.priceContainer}>
         <h2 className="heading-1">
           {newPrice.toLocaleString([], { style: 'currency', currency: 'EUR' })}

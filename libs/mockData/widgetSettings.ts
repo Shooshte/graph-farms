@@ -142,7 +142,7 @@ export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
         borderSize: '3px',
         item: {
           id: '1',
-          name: 'Gazirana Pijača Coca Cola 1,5 L',
+          name: 'Coca Cola',
           defaultPrice: 1.29,
           availableQuantity: 100,
           imageURL:
@@ -165,7 +165,7 @@ export const MOCK_LOYALTY_RULES: LoyaltyWidgetRule[] = [
         borderSize: '1px',
         item: {
           id: '1',
-          name: 'Gazirana Pijača Coca Cola 1,5 L',
+          name: 'Coca Cola',
           defaultPrice: 1.29,
           availableQuantity: 100,
           imageURL:
