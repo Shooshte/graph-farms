@@ -29,7 +29,6 @@
       }
     ]
   },
-  "defaultProject": "api",
   "generators": {
     "@nrwl/react": {
       "application": {
