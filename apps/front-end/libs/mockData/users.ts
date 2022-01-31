@@ -21,31 +21,110 @@ export const MOCK_USERS: MockUser[] = [
     pastMonthPurchases: [
       {
         createdAt: '2022-01-26',
-        lines: [],
+        lines: [
+          {
+            itemId: '55',
+            quantity: 2,
+          },
+        ],
       },
       {
-        createdAt: '2022-01-20',
-        lines: [],
+        createdAt: '2022-01-26',
+        lines: [
+          {
+            itemId: '3',
+            quantity: 2,
+          },
+          {
+            itemId: '6',
+            quantity: 2,
+          },
+          {
+            itemId: '18',
+            quantity: 2,
+          },
+        ],
       },
       {
         createdAt: '2022-01-17',
-        lines: [],
+        lines: [
+          {
+            itemId: '1',
+            quantity: 2,
+          },
+          {
+            itemId: '2',
+            quantity: 2,
+          },
+          {
+            itemId: '4',
+            quantity: 2,
+          },
+        ],
       },
       {
         createdAt: '2022-01-15',
-        lines: [],
+        lines: [
+          {
+            itemId: '19',
+            quantity: 2,
+          },
+          {
+            itemId: '22',
+            quantity: 2,
+          },
+          {
+            itemId: '33',
+            quantity: 2,
+          },
+        ],
       },
       {
         createdAt: '2022-01-12',
-        lines: [],
+        lines: [
+          {
+            itemId: '43',
+            quantity: 2,
+          },
+          {
+            itemId: '44',
+            quantity: 2,
+          },
+        ],
       },
       {
         createdAt: '2022-01-09',
-        lines: [],
+        lines: [
+          {
+            itemId: '39',
+            quantity: 2,
+          },
+          {
+            itemId: '22',
+            quantity: 2,
+          },
+          {
+            itemId: '33',
+            quantity: 2,
+          },
+        ],
       },
       {
         createdAt: '2022-01-08',
-        lines: [],
+        lines: [
+          {
+            itemId: '4',
+            quantity: 2,
+          },
+          {
+            itemId: '5',
+            quantity: 10,
+          },
+          {
+            itemId: '7',
+            quantity: 1,
+          },
+        ],
       },
     ],
     role: 'user',

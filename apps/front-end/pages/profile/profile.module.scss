@@ -1,0 +1,6 @@
+@import '../../styles//colors';
+@import '../../styles//fonts';
+
+.container {
+  padding: map-get($spacing-sizes, '1');
+}
