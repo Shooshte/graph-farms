@@ -100,7 +100,9 @@ html {
   font-size: $base-font-size;
   max-width: $max-text-width;
   padding: map-get($spacing-sizes, '4');
-  width: 100%;
+  width: calc(
+    100% - 2px - map-get($spacing-sizes, '4') - map-get($spacing-sizes, '4')
+  );
 }
 
 .input:focus-visible {
